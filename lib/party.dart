@@ -40,4 +40,17 @@ class Party{
   {
     this._persons.add(person);
   }
+
+   static List<Party> createDummyList(){
+    List<Party> _partyList = <Party>[];
+    List<Person> _personList = <Person>[];
+
+    _personList.add(Person("Frank", "424684@student.saxion.nl"));
+
+    _partyList.add(Party("Lan party"));
+    _partyList.add(Party.withPersons("Disco party", _personList));
+    _partyList.add(Party("Marvel party"));
+
+    return _partyList;
+  }
 }

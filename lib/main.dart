@@ -1,20 +1,19 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:party_planner/person.dart';
 import 'package:party_planner/party.dart';
+
+//TODO: volg tutorial voor navigator/routing: https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
 
 void main() {
   runApp(PartyApp());
 }
 
-class PartyApp extends StatelessWidget {
+class PartyApp extends StatefulWidget {
 
-  @override
+
+/*  @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = TextButton.styleFrom(
-        primary: Theme.of(context).colorScheme.onPrimary
-    );
+
 
     return MaterialApp(
       title: "Party app",
@@ -37,15 +36,45 @@ class PartyApp extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
-  Route _createRoute(){
+/*  Route _createRoute(){
     return PageRouteBuilder(pageBuilder: (context, animation , secondaryAnimation) => const AttendeesPage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child){
       return child;
     });
-  }
+  }*/
+
+  @override
+  State<StatefulWidget> createState() => _PartyAppState();
 }
+
+class _PartyAppState extends State<PartyApp>{
+
+  List parties = Party.createDummyList();
+
+
+  void initstate() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: "Party app",
+        home: Navigator(
+          pages: [
+            MaterialPage(key: ValueKey('PartyPage'),
+              child: Scaffold(),
+            )
+          ],
+          onPopPage: (route, result) => route.didPop(result),
+        )
+    );
+  }
+
+}
+
 
 class PartyList extends StatefulWidget {
   const PartyList({Key? key}) : super(key: key);
@@ -57,17 +86,19 @@ class PartyList extends StatefulWidget {
 
 class _PartyListState extends State<PartyList> {
 
-   final List<Party> _partyList = <Party>[];
+   final List<Party> _partyList =Party.createDummyList();
 
 
   Widget _buildPartyList(){
 
-    List<Person> _personList = <Person>[];
-    _personList.add(Person("Frank","424684@student.saxion.nl"));
+  /*  List<Person> _personList = <Person>[];
 
-    _partyList.add(Party("Lan party"));
-    _partyList.add(Party.withPersons("Disco party" , _personList));
-    _partyList.add(Party("Marvel party"));
+      _personList.add(Person("Frank", "424684@student.saxion.nl"));
+
+      _partyList.add(Party("Lan party"));
+      _partyList.add(Party.withPersons("Disco party", _personList));
+      _partyList.add(Party("Marvel party"));*/
+
 
     return ListView.builder(
 
@@ -85,11 +116,7 @@ class _PartyListState extends State<PartyList> {
 
   @override
   Widget build(BuildContext context) {
-/*    if(_partyList.isEmpty)
-      {
-        int size = _partyList.length;
-        return Text(size.toString() +" parties are found..." );
-      }*/
+
     return _buildPartyList();
   }
 }
