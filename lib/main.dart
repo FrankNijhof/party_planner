@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:party_planner/person.dart';
 import 'package:party_planner/party.dart';
 
-//TODO: volg tutorial voor navigator/routing: https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
+//TODO: The app has some sort of professional styling
+//TODO: The app shows a list of upcoming parties and gives the user the ability to add one
+//TODO: When the user clicks adds a party he/she can put then name, the description and the date of the party. Add the party to the phone agenda immediately after creating the party.
+//TODO: Allow the user to add persons to the party. When the user presses the button the phones contact list should appear and the user can select a contact.
+//TODO: Allow the user to send an invitation to the party people. You can do this with the cordova-email-plugin
+// or an ionic / framework7 plugin that’s based on that one. Otherwise an enhanced mailto:// URL should
+// work. You also can use some sort of iCal invitation, but’s that’s not necessary.
 
 void main() {
   runApp(PartyApp());
@@ -11,9 +17,8 @@ void main() {
 class PartyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = TextButton.styleFrom(
-      primary: Theme.of(context).colorScheme.onPrimary
-    );
+    final ButtonStyle style =
+        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
       title: "Party app",
       home: Scaffold(
@@ -21,15 +26,11 @@ class PartyApp extends StatelessWidget {
           title: const Text("Party app"),
           actions: <Widget>[
             TextButton(
-                style: style
-                ,onPressed: (){},
-                child: const Text('Add party')),
+                style: style, onPressed: () {}, child: const Text('Add party')),
             TextButton(
-                style: style
-                ,onPressed: (){},
-                child: const Text('Contacts'))
-
-          ],),
+                style: style, onPressed: () {}, child: const Text('Contacts'))
+          ],
+        ),
         body: const Center(
           child: PartyList(),
         ),
@@ -44,7 +45,6 @@ class PartyApp extends StatelessWidget {
     });
   }*/
 
-
 }
 
 class PartyList extends StatefulWidget {
@@ -52,14 +52,12 @@ class PartyList extends StatefulWidget {
 
   @override
   _PartyListState createState() => _PartyListState();
-
 }
 
 class _PartyListState extends State<PartyList> {
   final List<Party> _partyList = Party.createDummyList();
 
   Widget _buildPartyList() {
-
     return ListView.builder(
         itemCount: _partyList.length,
         padding: const EdgeInsets.all(16.0),
@@ -69,9 +67,11 @@ class _PartyListState extends State<PartyList> {
           return ListTile(
             title: Text(party.getName()),
             subtitle: Text("Attendees:" + party.getPersons().length.toString()),
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PartyDetailsScreen(party)));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PartyDetailsScreen(party)));
             },
           );
           //return _buildRow(_partyList[i].getName());
@@ -89,22 +89,51 @@ class PartyDetailsScreen extends StatelessWidget {
 
   PartyDetailsScreen(this.party);
 
+  Widget _buildPersonsList() {
+    if (party.getPersons().isEmpty) {
+      return Text("No attendees");
+    }
+
+    return ListView.builder(
+        itemCount: party.getPersons().length,
+        itemBuilder: (context, i) {
+          final Person person = party.getPersons()[i];
+          return ListTile(
+            title: Text(person.getName()),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(party.getName()),
       ),
-      body: Center(
-        child: Text("Number of attendees: " + party.getPersons().length.toString()),
-      ) ,
+      body: Column(
+        children: [
+          Text(party.getName() ,
+          style: TextStyle(fontSize: 30 , fontWeight: FontWeight.bold),),
+          Container(
+            height: 50.0,
+            child: const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Attendees",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                )),
+          ),
+          Expanded(child: _buildPersonsList())
+        ],
+      ) /*Center(
+        child:
+            _buildPersonsList() */ /*Text("Number of attendees: " + party.getPersons().length.toString())*/ /*,
+      )*/
+      ,
     );
   }
-
-}
-class CreatePartyPage {
 }
 
-class ContactsPage {
+class CreatePartyPage {}
 
-}
+class ContactsPage {}
