@@ -11,10 +11,17 @@ import 'package:party_planner/party.dart';
 // work. You also can use some sort of iCal invitation, but’s that’s not necessary.
 
 void main() {
-  runApp(PartyApp());
+  //runApp(PartyApp());
+
+  runApp(const MaterialApp(
+    title: 'Navigation Basics',
+    home: PartyApp(),
+  ));
 }
 
 class PartyApp extends StatelessWidget {
+  const PartyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style =
@@ -26,9 +33,23 @@ class PartyApp extends StatelessWidget {
           title: const Text("Party app"),
           actions: <Widget>[
             TextButton(
-                style: style, onPressed: () {}, child: const Text('Add party')),
+                style: style,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreatePartyPage()));
+                },
+                child: const Text('Add party')),
             TextButton(
-                style: style, onPressed: () {}, child: const Text('Contacts'))
+                style: style,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ContactsPage()));
+                },
+                child: const Text('Contacts'))
           ],
         ),
         body: const Center(
@@ -37,14 +58,6 @@ class PartyApp extends StatelessWidget {
       ),
     );
   }
-
-/*  Route _createRoute(){
-    return PageRouteBuilder(pageBuilder: (context, animation , secondaryAnimation) => const AttendeesPage(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child){
-      return child;
-    });
-  }*/
-
 }
 
 class PartyList extends StatefulWidget {
@@ -74,7 +87,6 @@ class _PartyListState extends State<PartyList> {
                       builder: (context) => PartyDetailsScreen(party)));
             },
           );
-          //return _buildRow(_partyList[i].getName());
         });
   }
 
@@ -112,8 +124,10 @@ class PartyDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text(party.getName() ,
-          style: TextStyle(fontSize: 30 , fontWeight: FontWeight.bold),),
+          Text(
+            party.getName(),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
           Container(
             height: 50.0,
             child: const Align(
@@ -125,15 +139,37 @@ class PartyDetailsScreen extends StatelessWidget {
           ),
           Expanded(child: _buildPersonsList())
         ],
-      ) /*Center(
-        child:
-            _buildPersonsList() */ /*Text("Number of attendees: " + party.getPersons().length.toString())*/ /*,
-      )*/
-      ,
+      ),
     );
   }
 }
 
-class CreatePartyPage {}
+class CreatePartyPage extends StatelessWidget {
+  const CreatePartyPage({Key? key}) : super(key: key);
 
-class ContactsPage {}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add party"),
+      ),
+      body: Center(
+        //TODO: Create Form to add party
+      ),
+    );
+  }
+}
+
+class ContactsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My contacts"),
+      ),
+      body: Center(
+        //TODO: Create list with contacts
+      ),
+    );
+  }
+}

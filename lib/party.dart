@@ -44,10 +44,14 @@ class Party{
    static List<Party> createDummyList(){
     List<Party> _partyList = <Party>[];
     List<Person> _personList = <Person>[];
-
+    List<Person> _personList2 = <Person>[];
     _personList.add(Person("Frank", "424684@student.saxion.nl"));
+    _personList.add(Person("Derk", "******@student.saxion.nl"));
 
-    _partyList.add(Party("Lan party"));
+    _personList2.add(Person("Peter", "******@student.saxion.nl"));
+
+
+    _partyList.add(Party.withPersons("Lan party", _personList2));
     _partyList.add(Party.withPersons("Disco party", _personList));
     _partyList.add(Party("Marvel party"));
 
