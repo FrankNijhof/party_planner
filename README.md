@@ -9,8 +9,10 @@ The invited attendees should get an invitation mail from the user.
 
 We needed for each prototype a requirement of features. <br/> <br/>
 So far, the features that I have created for this app are:
-- Writing and Sending a mail to a recipient
-- A calendar to select a date for creating a party/event
+- Writing and Sending a mail to a recipient <br/>
+ ![Composing mail](https://imgur.com/NypgpNw.png "a title")
+- A calendar to select a date for creating a party/event <br/>
+  ![Add event](https://imgur.com/3NaDVvX.png "a title")
 - Saving the party/event in your phone agenda
 
 ## Plugins/libraries
